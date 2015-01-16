@@ -4,9 +4,11 @@ UIkit is a lightweight and modular front-end framework for developing fast and p
 
 * [Homepage](http://getuikit.com) - Learn more about UIkit
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
-* [Google+](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
-* [Issues](http://github.com/uikit/uikit/issues) - Report bugs
-* [Developer Chat](https://www.hipchat.com/gaWuqCDrW) - Every work day between 8:00 and 18:00 UTC
+* [Google+ Community](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
+
+Join our developer chat. We are online every work day between 8:00 and 18:00 UTC
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uikit/uikit)
 
 ## Getting started
 
@@ -49,10 +51,24 @@ The built version of UIkit will be put in the `/dist` subdirectory. Pass a theme
 ### Browsersync
 
 ```
-gulp watch [-t themename]
+gulp watch
 ```
 
-After running `gulp watch` a new browser instance will open, pointing to the uikit folder - `http://localhost:3000/`. The browser window will reload anytime you modify a source file. To speed up the build and reload process you can pass a theme name parameter to only watch the specified theme.
+After running `gulp watch` a new browser instance will open, pointing to the uikit folder - `http://localhost:3000/`. The browser window will reload anytime you modify a source file.
+
+### Custom prefix
+
+Run gulp with your own prefix parameter ```-p``` to have all classes custom prefixed.
+
+```
+gulp -p myprefix
+```
+
+To use JavaScript with your custom build just call the ```noConflict``` method with your prefix as a parameter after including UIkit.
+
+```
+var myUIkit = UIkit.noConflict('myprefix');
+```
 
 ## Contributing
 
@@ -64,14 +80,6 @@ Each time you want to work on a fix or a new feature, create a new branch based 
 
 UIkit is maintained by using the [Semantic Versioning Specification (SemVer)](http://semver.org).
 
-## Credits
+## Copyright and License
 
-We built UIkit using popular open source projects.
-
-* jQuery ([MIT License](http://opensource.org/licenses/MIT))
-* normalize.css ([MIT License](http://opensource.org/licenses/MIT))
-* FontAwesome ([CC BY 3.0 License](http://creativecommons.org/licenses/by/3.0/))
-
-## Copyright and license
-
-Copyright 2014 [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).
+Copyright [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).

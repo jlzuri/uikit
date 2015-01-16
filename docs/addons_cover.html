@@ -47,6 +47,7 @@
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
                             <li class="uk-nav-header">Layout</li>
+                            <li><a href="addons_grid.html">Grid</a></li>
                             <li><a href="addons_flex.html">Flex</a></li>
                             <li class="uk-active"><a href="addons_cover.html">Cover</a></li>
                             <li class="uk-nav-header">Navigations</li>
@@ -54,15 +55,19 @@
                             <li><a href="addons_slidenav.html">Slidenav</a></li>
                             <li><a href="addons_pagination.html">Pagination</a></li>
                             <li class="uk-nav-header">Common</li>
+                            <li><a href="addons_caption.html">Caption</a></li>
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
                             <li><a href="addons_form-select.html">Form select</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
+                            <li><a href="addons_slideshow.html">Slideshow</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>
@@ -82,6 +87,8 @@
                             <p class="uk-article-lead">Expand images or videos to cover their entire container.</p>
 
                             <p>This component allows you to create fullscreen teasers using images, objects or even iframes. Regardless what kind of element, it will always be centered vertically and horizontally and cover its container without losing its proportions. You can also place additional content, like text or an image, on top of the image or video.</p>
+
+                            <hr class="uk-article-divider">
 
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
@@ -104,8 +111,9 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-cover" style="height: 300px;">
-                                <video class="uk-cover-object" width="600" height="400" autoplay="" loop="" muted="" controls="">
+                                <video class="uk-cover-object" width="600" height="400" autoplay loop muted controls>
                                     <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
+                                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
                                 </video>
                             </div>
 
@@ -126,7 +134,7 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-cover" style="height: 300px;">
-                                <iframe data-uk-cover="" src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent&amp;enablejsapi=1&amp;api=1" width="560" height="315" frameborder="0" allowfullscreen="" style="width: 1130px; height: 636px;"></iframe>
+                                <iframe data-uk-cover src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen=""></iframe>
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
@@ -146,7 +154,7 @@
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <div class="uk-cover-background" style="background-image: url(images/placeholder_600x400.svg);">
-                                <img class="uk-invisible" src="images/placeholder_600x400.svg" width="600" height="400" alt="">
+                                <img class="uk-invisible" src="images/placeholder_600x400.svg" width="600" height="400" alt="Placeholder">
                             </div>
 
                             <h3 class="tm-article-subtitle">Markup</h3>
@@ -159,14 +167,15 @@
 
                             <h3>Video</h3>
 
-                            <p>To add the same behavior to a video, you also need to add the <code>.uk-position-relative</code> class to the cover container and the <code>.uk-position-absolute</code> class to the cover object. The same applies to iframes.</p>
+                            <p>To add the same behavior to a video, you also need to add the <code>.uk-position-relative</code> class to the cover container and the <code>.uk-position-top</code> class to the cover object. The same applies to iframes.</p>
 
                             <h4 class="tm-article-subtitle">Example</h4>
 
                             <div class="uk-cover uk-position-relative">
                                 <img class="uk-invisible" src="images/placeholder_600x400.svg" width="600" height="400" alt="">
-                                <video class="uk-cover-object uk-position-absolute" width="600" height="400" autoplay="" loop="" muted="" controls="">
+                                <video class="uk-cover-object uk-position-top" width="600" height="400" autoplay loop muted controls>
                                     <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test2" type="video/mp4">
+                                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test2" type="video/ogg">
                                 </video>
                             </div>
 
@@ -174,7 +183,7 @@
 
 <pre><code>&lt;div class="uk-cover uk-position-relative"&gt;
     &lt;img class="uk-invisible" src="" width="" height="" alt=""&gt;
-    &lt;video class="uk-cover-object uk-position-absolute" width="" height=""&gt;
+    &lt;video class="uk-cover-object uk-position-top" width="" height=""&gt;
         &lt;source src="" type=""&gt;
     &lt;/video&gt;
 &lt;/div&gt;</code></pre>
@@ -245,6 +254,7 @@
                             <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-header">Components</li>
@@ -310,6 +320,7 @@
                     <li class="uk-nav-header">Add-ons</li>
                     <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_grid.html">Grid</a></li>
                             <li><a href="addons_flex.html">Flex</a></li>
                             <li><a href="addons_cover.html">Cover</a></li>
                         </ul>
@@ -323,6 +334,7 @@
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_caption.html">Caption</a></li>
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
@@ -332,9 +344,12 @@
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
+                            <li><a href="addons_slideshow.html">Slideshow</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>

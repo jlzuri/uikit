@@ -36,8 +36,12 @@
 
             <h2>Grid</h2>
 
+            <div class="uk-clearfix" style="background: rgba(0,0,0,0.1);">
+                <div style="margin: 20px 0;">Clearfix method test for not colapsing margin. (Safari)</div>
+            </div>
+
             <div class="uk-clearfix">
-                <div class="uk-float-left">Float Test</div>
+                <div class="uk-float-left" style="margin-top: 40px;">Float Test</div>
             </div>
 
             <div class="uk-grid">
@@ -332,7 +336,7 @@
 
             <h3>With target selector</h3>
 
-            <div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
+            <div class="uk-grid uk-grid-match" data-uk-grid-match="{target:'> div > .uk-panel'}" data-uk-grid-margin>
                 <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
                 <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
                 <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</div></div>
@@ -340,7 +344,7 @@
 
             <h3>Match only within rows</h3>
 
-            <div class="uk-grid" data-uk-grid-match="{target:'> div > .uk-panel', row:true}" data-uk-grid-margin>
+            <div class="uk-grid uk-grid-match" data-uk-grid-match="{target:'> div > .uk-panel', row:true}" data-uk-grid-margin>
                 <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
                 <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
                 <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
@@ -352,7 +356,7 @@
                 <div class="uk-width-medium-1-3"><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
             </div>
 
-            <ul class="uk-grid uk-grid-width-1-2 uk-grid-width-small-1-3 uk-grid-width-medium-1-4 uk-grid-width-large-1-5 uk-grid-width-xlarge-1-6" data-uk-grid-match="{target:'> li > .uk-panel', row:true}" data-uk-grid-margin>
+            <ul class="uk-grid uk-grid-match uk-grid-width-1-2 uk-grid-width-small-1-3 uk-grid-width-medium-1-4 uk-grid-width-large-1-5 uk-grid-width-xlarge-1-6" data-uk-grid-match="{target:'> li > .uk-panel', row:true}" data-uk-grid-margin>
                 <li><div class="uk-panel">Lorem ipsum dolor sit amet.<div></li>
                 <li><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur.<div></li>
                 <li><div class="uk-panel">Lorem ipsum dolor sit amet, consectetur adipisicing elit.<div></li>

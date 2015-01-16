@@ -170,15 +170,97 @@
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="frameless-modifier"><a href="#frameless-modifier" class="uk-link-reset">Frameless modifier</a></h2>
+                            <h2 id="modal-header-footer"><a href="#modal-header-footer" class="uk-link-reset">Modal header and footer</a></h2>
 
-                            <p>By default, the modal box has a padding. To avoid this and remove any framing, just add the <code>.uk-modal-dialog-frameless</code> class. This can be useful, if you want to use the modal as a lightbox for your images. The close button will adjust its position automatically to the frameless dialog.</p>
+                            <p>You can create a header and footer for your modal, which are seperated from the content. Just add the <code>.uk-modal-header</code> or the <code>.uk-modal-footer</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <button class="uk-button" data-uk-modal="{target:'#modal6'}">Open</button>
+                            <div id="modal6" class="uk-modal">
+                                <div class="uk-modal-dialog">
+                                    <button type="button" class="uk-modal-close uk-close"></button>
+                                    <div class="uk-modal-header">
+                                        <h2>Headline</h2>
+                                    </div>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <div class="uk-modal-footer uk-text-right">
+                                        <button type="button" class="uk-button">Cancel</button>
+                                        <button type="button" class="uk-button uk-button-primary">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;div class="uk-modal-header"&gt;...&lt;/div&gt;
+        ...
+        &lt;div class="uk-modal-footer"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="modal-with-caption"><a href="#modal-with-caption" class="uk-link-reset">Modal caption</a></h2>
+
+                            <p>You can also create a caption that will be placed outside the modal. Just add the <code>.uk-modal-caption</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <button class="uk-button" data-uk-modal="{target:'#modal7'}">Open</button>
+                            <div id="modal7" class="uk-modal">
+                                <div class="uk-modal-dialog">
+                                    <a href="" class="uk-modal-close uk-close"></a>
+                                    <h1>Headline</h1>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <div class="uk-modal-caption">Caption</div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;div class="uk-modal-caption"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="modal-with-spinner"><a href="#modal-with-spinner" class="uk-link-reset">Modal spinner</a></h2>
+
+                            <p>To place a spinning icon inside your modal, add the <code>.uk-modal-spinner</code> class to a <code>&lt;div&gt;</code> element inside the modal dialog.</p>
+
+                            <h3 class="tm-article-subtitle">Example</h3>
+
+                            <a class="uk-button" href="#modal-spinner" data-uk-modal>Open</a>
+                            <div id="modal-spinner" class="uk-modal">
+                                <div class="uk-modal-dialog">
+                                    <div class="uk-modal-spinner"></div>
+                                </div>
+                            </div>
+
+                            <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;div class="uk-modal"&gt;
+    &lt;div class="uk-modal-dialog"&gt;
+        &lt;div class="uk-modal-spinner"&gt;...&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="lightbox-modifier"><a href="#lightbox-modifier" class="uk-link-reset">Lightbox modifier</a></h2>
+
+                            <p>To create a lightbox-like modal dialog, just add the <code>.uk-modal-dialog-lightbox</code> class. This can be useful, if you want to use the modal as a lightbox for your images. The close button will adjust its position automatically to the dialog.</p>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
                             <button class="uk-button" data-uk-modal="{target:'#modal-3'}">Open</button>
                             <div id="modal-3" class="uk-modal">
-                                <div class="uk-modal-dialog uk-modal-dialog-frameless">
+                                <div class="uk-modal-dialog uk-modal-dialog-lightbox">
                                     <a href="" class="uk-modal-close uk-close uk-close-alt"></a>
                                     <img src="images/placeholder_600x400.svg" width="600" height="400" alt="">
                                 </div>
@@ -191,13 +273,27 @@
 
 &lt;!-- This is the modal --&gt;
 &lt;div id="my-id" class="uk-modal"&gt;
-    &lt;div class="uk-modal-dialog uk-modal-dialog-frameless"&gt;
+    &lt;div class="uk-modal-dialog uk-modal-dialog-lightbox"&gt;
         &lt;a href="" class="uk-modal-close uk-close uk-close-alt"&gt;&lt;/a&gt;
         &lt;img src="" alt=""&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
-                        <p><span class="uk-badge">NOTE</span> When creating a close button within the frameless modifier, we also recommend adding the <code>.uk-close</code> class from the <a href="close.html">Close component</a>. In that case you need to add the <code>.uk-close-alt</code> class as well to give your button a styling that fits the frameless modal.</p>
+                        <p><span class="uk-badge">NOTE</span> When creating a close button within the lightbox modifier, we also recommend adding the <code>.uk-close-alt</code> class from the <a href="close.html">Close component</a> to the close button to give your button a styling that fits the lightbox modal.</p>
+
+                        <hr class="uk-article-divider">
+
+                        <h2 id="center-modal"><a href="#center-modal" class="uk-link-reset">Center Modal</a></h2>
+
+                        <p>To vertically center the modal, add the <code>{center:true}</code> option to the data-attribute.</p>
+
+                        <h3 class="tm-article-subtitle">Example</h3>
+
+                        <a class="uk-button" href="#modal" data-uk-modal="{center:true}">Open</a>
+
+                        <h3 class="tm-article-subtitle">Markup</h3>
+
+<pre><code>&lt;a href="#my-id" data-uk-modal="{center:true}"&gt;&lt;/a&gt;</code></pre>
 
                         <hr class="uk-article-divider">
 
@@ -275,7 +371,7 @@
 
                         <h3 class="tm-article-subtitle">Example</h3>
 
-<pre><code>var modal = $.UIkit.modal(".modalSelector");
+<pre><code>var modal = UIkit.modal(".modalSelector");
 
 if ( modal.isActive() ) {
     modal.hide();
@@ -287,20 +383,46 @@ if ( modal.isActive() ) {
 
                         <h3>Events</h3>
 
-                        <p>The modal component triggers an <code>uk.modal.show</code> event every time a modal is opened and <code>uk.modal.hide</code> when a modal is closed.</p>
+                        <p>The modal component triggers an <code>show.uk.modal</code> event every time a modal is opened and <code>hide.uk.modal</code> when a modal is closed.</p>
 
                         <h3 class="tm-article-subtitle">Example</h3>
 
 <pre><code>$('.modalSelector').on({
 
-    'uk.modal.show': function(){
+    'show.uk.modal': function(){
         console.log("Modal is visible.");
     },
 
-    'uk.modal.hide': function(){
+    'hide.uk.modal': function(){
         console.log("Element is not visible.");
     }
 });</code></pre>
+
+                            <h3>Events</h3>
+
+                            <div class="uk-overflow-container">
+                                <table class="uk-table uk-table-striped uk-text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Parameter</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><code>show.uk.modal</code></td>
+                                            <td>event</td>
+                                            <td>On modal show</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>hide.uk.modal</code></td>
+                                            <td>event</td>
+                                            <td>On modal hide</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
 
                         </article>
                     </div>
@@ -345,6 +467,7 @@ if ( modal.isActive() ) {
                             <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-header">Components</li>
@@ -410,6 +533,7 @@ if ( modal.isActive() ) {
                     <li class="uk-nav-header">Add-ons</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_grid.html">Grid</a></li>
                             <li><a href="addons_flex.html">Flex</a></li>
                             <li><a href="addons_cover.html">Cover</a></li>
                         </ul>
@@ -423,6 +547,7 @@ if ( modal.isActive() ) {
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_caption.html">Caption</a></li>
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
@@ -432,9 +557,12 @@ if ( modal.isActive() ) {
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
+                            <li><a href="addons_slideshow.html">Slideshow</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>

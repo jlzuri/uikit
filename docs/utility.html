@@ -367,16 +367,20 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><code>.uk-position-absolute</code></td>
-                                            <td>Adds absolute positioning to an element.</td>
+                                            <td><code>.uk-position-top</code></td>
+                                            <td>Positions an element absolute at the top.</td>
                                         </tr>
                                         <tr>
-                                            <td><code>.uk-position-relative</code></td>
-                                            <td>Adds relative positioning to an element.</td>
+                                            <td><code>.uk-position-bottom</code></td>
+                                            <td>Positions an element absolute at the bottom.</td>
                                         </tr>
                                         <tr>
                                             <td><code>.uk-position-cover</code></td>
                                             <td>Adds absolute positioning to an element and stretches it to cover the entire parent.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-position-relative</code></td>
+                                            <td>Adds relative positioning to an element.</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -409,9 +413,16 @@
                                 </table>
                             </div>
 
+                            <p><span class="uk-badge">NOTE</span> The <code>.uk-responsive-width</code> class can also be applied to an Iframe, provided its width and height attributes are set.</p>
+
                             <h3 class="tm-article-subtitle">Example width</h3>
 
-                            <p><video controls class="uk-responsive-width" width="600" height="350"></video></p>
+                            <p>
+                                <video controls class="uk-responsive-width" width="600" height="350">
+                                    <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
+                                        <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
+                                </video>
+                            </p>
 
                             <h3 class="tm-article-subtitle">Example height</h3>
 
@@ -858,6 +869,14 @@
                                             <td>Hides the element on any device.</td>
                                         </tr>
                                         <tr>
+                                            <td><code>.uk-hidden-touch</code></td>
+                                            <td>Hides the element on touch devices.</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>.uk-hidden-notouch</code></td>
+                                            <td>Hides the element on non-touch devices.</td>
+                                        </tr>
+                                        <tr>
                                             <td><code>.uk-invisible</code></td>
                                             <td>Hides the element without removing it from the flow.</td>
                                         </tr>
@@ -984,6 +1003,7 @@
                             <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-header">Components</li>
@@ -1049,6 +1069,7 @@
                     <li class="uk-nav-header">Add-ons</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_grid.html">Grid</a></li>
                             <li><a href="addons_flex.html">Flex</a></li>
                             <li><a href="addons_cover.html">Cover</a></li>
                         </ul>
@@ -1062,6 +1083,7 @@
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_caption.html">Caption</a></li>
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
@@ -1071,9 +1093,12 @@
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
+                            <li><a href="addons_slideshow.html">Slideshow</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>

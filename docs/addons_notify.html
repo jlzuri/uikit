@@ -18,7 +18,7 @@
         <script>
         $(function(){
             $("body").on("click", ".uk-button[data-message]", function(){
-                $.UIkit.notify($(this).data());
+                UIkit.notify($(this).data());
             });
         })
         </script>
@@ -54,6 +54,7 @@
 
                         <ul class="tm-nav uk-nav" data-uk-nav>
                             <li class="uk-nav-header">Layout</li>
+                            <li><a href="addons_grid.html">Grid</a></li>
                             <li><a href="addons_flex.html">Flex</a></li>
                             <li><a href="addons_cover.html">Cover</a></li>
                             <li class="uk-nav-header">Navigations</li>
@@ -61,15 +62,19 @@
                             <li><a href="addons_slidenav.html">Slidenav</a></li>
                             <li><a href="addons_pagination.html">Pagination</a></li>
                             <li class="uk-nav-header">Common</li>
+                            <li><a href="addons_caption.html">Caption</a></li>
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
                             <li><a href="addons_form-select.html">Form select</a></li>
                             <li><a href="addons_placeholder.html">Placeholder</a></li>
                             <li class="uk-nav-header">JavaScript</li>
+                            <li><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
+                            <li><a href="addons_slideshow.html">Slideshow</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li class="uk-active"><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>
@@ -90,13 +95,15 @@
 
                             <p>The notification will not fade out but remain visible when you hover the message until you stop hovering. You can also close the notification by clicking it.</p>
 
+                            <hr class="uk-article-divider">
+
                             <h2 id="usage"><a href="#usage" class="uk-link-reset">Usage</a></h2>
 
                             <p>Notify provides a simple API which you can reuse in your application code. The following JavaScript code snippet gets you started.</p>
 
                             <h3 class="tm-article-subtitle">JavaScript</h3>
 
-<pre><code>$.UIkit.notify({
+<pre><code>UIkit.notify({
     message : 'Bazinga!',
     status  : 'info',
     timeout : 5000,
@@ -105,9 +112,9 @@
 
 
 // Shortcuts
-$.UIkit.notify('My message');
-$.UIkit.notify('My message', status);
-$.UIkit.notify('My message', { /* options */ });</code></pre>
+UIkit.notify('My message');
+UIkit.notify('My message', status);
+UIkit.notify('My message', { /* options */ });</code></pre>
 
                             <h3 class="tm-article-subtitle">Example</h3>
 
@@ -115,7 +122,7 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                                 <button class="uk-button" data-message="Message..." data-pos="top-center">Click me</button>
                             </p>
 
-                            <pre><code>$.UIkit.notify("Message...");</code></pre>
+                            <pre><code>UIkit.notify("Message...");</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -129,7 +136,7 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                                 <button class="uk-button" data-message="<i class='uk-icon-check'></i> Message with an icon...">With icon</button>
                             </p>
 
-                            <pre><code>$.UIkit.notify("&lt;i class='uk-icon-check'&gt;&lt;/i&gt; Message with an icon...");</code></pre>
+                            <pre><code>UIkit.notify("&lt;i class='uk-icon-check'&gt;&lt;/i&gt; Message with an icon...");</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -143,7 +150,7 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                                 <button class="uk-button" data-message="Sticky message..." data-timeout="0">Sticky</button>
                             </p>
 
-                            <pre><code>$.UIkit.notify("Message...", {timeout: 0});</code></pre>
+                            <pre><code>UIkit.notify("Message...", {timeout: 0});</code></pre>
 
                             <hr class="uk-article-divider">
 
@@ -164,42 +171,42 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                                         <tr>
                                             <td><code>top-center</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {pos:'top-center'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {pos:'top-center'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="top-center">Top Center</button></td>
                                         </tr>
                                         <tr>
                                             <td><code>top-left</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {pos:'top-left'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {pos:'top-left'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="top-left">Top Left</button></td>
                                         </tr>
                                         <tr>
                                             <td><code>top-right</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {pos:'top-right'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {pos:'top-right'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="top-right">Top Right</button></td>
                                         </tr>
                                         <tr>
                                             <td><code>bottom-center</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {pos:'bottom-center'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {pos:'bottom-center'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="bottom-center">Bottom Center</button></td>
                                         </tr>
                                         <tr>
                                             <td><code>bottom-left</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {pos:'bottom-left'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {pos:'bottom-left'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="bottom-left">Bottom Left</button></td>
                                         </tr>
                                         <tr>
                                             <td><code>bottom-right</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {pos:'bottom-right'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {pos:'bottom-right'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Message..." data-pos="bottom-right">Bottom Right</button></td>
                                         </tr>
@@ -226,28 +233,28 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                                         <tr>
                                             <td><code>info</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {status:'info'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {status:'info'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Info message..." data-status="info">Info</button></td>
                                         </tr>
                                         <tr>
                                             <td><code>success</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {status:'success'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {status:'success'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Success message..." data-status="success">Success</button></td>
                                         </tr>
                                         <tr>
                                             <td><code>warning</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {status:'warning'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {status:'warning'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Warning message..." data-status="warning">Warning</button></td>
                                         </tr>
                                         <tr>
                                             <td><code>danger</code></td>
                                             <td>
-                                                <pre><code>$.UIkit.notify("...", {status:'danger'})</code></pre>
+                                                <pre><code>UIkit.notify("...", {status:'danger'})</code></pre>
                                             </td>
                                             <td><button class="uk-button uk-width-1-1" data-message="Danger message..." data-status="danger">Danger</button></td>
                                         </tr>
@@ -299,6 +306,7 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                             <li><a href="documentation_create-a-style.html">Create a style</a></li>
                             <li><a href="documentation_customizer-json.html">Customizer.json</a></li>
                             <li><a href="documentation_javascript.html">JavaScript</a></li>
+                            <li><a href="documentation_custom-prefix.html">Custom prefix</a></li>
                         </ul>
                     </li>
                     <li class="uk-nav-header">Components</li>
@@ -363,6 +371,7 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                     <li class="uk-nav-header">Add-ons</li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_grid.html">Grid</a></li>
                             <li><a href="addons_flex.html">Flex</a></li>
                             <li><a href="addons_cover.html">Cover</a></li>
                         </ul>
@@ -376,6 +385,7 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                     </li>
                     <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_caption.html">Caption</a></li>
                             <li><a href="addons_form-advanced.html">Form advanced</a></li>
                             <li><a href="addons_form-file.html">Form file</a></li>
                             <li><a href="addons_form-password.html">Form password</a></li>
@@ -385,9 +395,12 @@ $.UIkit.notify('My message', { /* options */ });</code></pre>
                     </li>
                     <li class="uk-parent uk-active"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
                         <ul class="uk-nav-sub">
+                            <li><a href="addons_lightbox.html">Lightbox</a></li>
                             <li><a href="addons_autocomplete.html">Autocomplete</a></li>
                             <li><a href="addons_datepicker.html">Datepicker</a></li>
                             <li><a href="addons_htmleditor.html">HTML editor</a></li>
+                            <li><a href="addons_slideshow.html">Slideshow</a></li>
+                            <li><a href="addons_accordion.html">Accordion</a></li>
                             <li><a href="addons_notify.html">Notify</a></li>
                             <li><a href="addons_search.html">Search</a></li>
                             <li><a href="addons_nestable.html">Nestable</a></li>

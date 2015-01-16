@@ -11,6 +11,21 @@
             "row"    : true
         },
 
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                UI.$("[data-@-grid-match]", context).each(function() {
+                    var grid = UI.$(this), obj;
+
+                    if (!grid.data("gridMatchHeight")) {
+                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-@-grid-match")));
+                    }
+                });
+            });
+        },
+
         init: function() {
 
             var $this = this;
@@ -34,13 +49,13 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$html.on("uk.dom.changed", function(e) {
+            UI.$html.on("changed.uk.dom", function(e) {
                 $this.columns  = $this.element.children();
                 $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
                 $this.match();
             });
 
-            this.on("uk.check.display", function(e) {
+            this.on("display.uk.check", function(e) {
                 if(this.element.is(":visible")) this.match();
             }.bind(this));
 
@@ -49,50 +64,7 @@
 
         match: function() {
 
-            this.revert();
-
-            var firstvisible = this.columns.filter(":visible:first");
-
-            if (!firstvisible.length) return;
-
-            var stacked = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100 ? true : false,
-                max     = 0,
-                $this   = this;
-
-            if (stacked) return;
-
-            if(this.options.row) {
-
-                this.element.width(); // force redraw
-
-                setTimeout(function(){
-
-                    var lastoffset = false, group = [];
-
-                    $this.elements.each(function(i) {
-                        var ele = $(this), offset = ele.offset().top;
-
-                        if(offset != lastoffset && group.length) {
-
-                            $this.matchHeights($(group));
-                            group  = [];
-                            offset = ele.offset().top;
-                        }
-
-                        group.push(ele);
-                        lastoffset = offset;
-                    });
-
-                    if(group.length) {
-                        $this.matchHeights($(group));
-                    }
-
-                }, 0);
-
-            } else {
-
-                this.matchHeights(this.elements);
-            }
+            UI.Utils.matchHeights(this.elements, this.options);
 
             return this;
         },
@@ -100,30 +72,28 @@
         revert: function() {
             this.elements.css('min-height', '');
             return this;
-        },
-
-        matchHeights: function(elements){
-
-            if(elements.length < 2) return;
-
-            var max = 0;
-
-            elements.each(function() {
-                max = Math.max(max, $(this).outerHeight());
-            }).each(function(i) {
-
-                var element = $(this),
-                    height  = max - (element.outerHeight() - element.height());
-
-                element.css('min-height', height + 'px');
-            });
         }
     });
 
     UI.component('gridMargin', {
 
         defaults: {
-            "cls": "uk-grid-margin"
+            "cls": "@-grid-margin"
+        },
+
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                UI.$("[data-@-grid-margin]", context).each(function() {
+                    var grid = UI.$(this), obj;
+
+                    if (!grid.data("gridMargin")) {
+                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-@-grid-margin")));
+                    }
+                });
+            });
         },
 
         init: function() {
@@ -134,21 +104,70 @@
         }
     });
 
+    // helper
 
-    // init code
-    UI.ready(function(context) {
+    UI.Utils.matchHeights = function(elements, options) {
 
-        $("[data-uk-grid-match],[data-uk-grid-margin]", context).each(function() {
-            var grid = $(this), obj;
+        elements = $(elements).css('min-height', '');
+        options  = $.extend({ row : true }, options);
 
-            if (grid.is("[data-uk-grid-match]") && !grid.data("gridMatchHeight")) {
-                obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
-            }
+        var firstvisible = elements.filter(":visible:first");
 
-            if (grid.is("[data-uk-grid-margin]") && !grid.data("gridMargin")) {
-                obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
-            }
-        });
-    });
+        if (!firstvisible.length) return;
 
-})(jQuery, jQuery.UIkit);
+        var stacked      = Math.ceil(100 * parseFloat(firstvisible.css('width')) / parseFloat(firstvisible.parent().css('width'))) >= 100 ? true : false,
+            max          = 0,
+            matchHeights = function(group){
+
+                if(group.length < 2) return;
+
+                var max = 0;
+
+                group.each(function() {
+                    max = Math.max(max, $(this).outerHeight());
+                }).each(function(i) {
+
+                    var element = $(this),
+                    height  = max - (element.outerHeight() - element.height());
+
+                    element.css('min-height', height + 'px');
+                });
+            };
+
+        if (stacked) return;
+
+        if(options.row) {
+
+            firstvisible.width(); // force redraw
+
+            setTimeout(function(){
+
+                var lastoffset = false, group = [];
+
+                elements.each(function(i) {
+
+                    var ele = $(this), offset = ele.offset().top;
+
+                    if(offset != lastoffset && group.length) {
+
+                        matchHeights($(group));
+                        group  = [];
+                        offset = ele.offset().top;
+                    }
+
+                    group.push(ele);
+                    lastoffset = offset;
+                });
+
+                if(group.length) {
+                    matchHeights($(group));
+                }
+
+            }, 0);
+
+        } else {
+            matchHeights(elements);
+        }
+    };
+
+})(jQuery, UIkit);
