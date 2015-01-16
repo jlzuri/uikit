@@ -19,6 +19,7 @@
 
     UI.component('tagger', {
         defaults: {
+            preload         : null,
             skipListChars   : [' ', '|', '!', '$', '%', '^', '&', '*', '+', '.'],
             msgMoreOptions  : 'Add Tag',
             template        : '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">\
@@ -79,6 +80,27 @@
 
             this.input = this.find("input:last").attr("autocomplete", "off");
             this.insertPoint = this.input.parent();
+
+            if(this.options.preload)
+            {
+                var tags = this.options.preload;
+                switch(typeof(this.options.preload)) {
+                    case 'object':
+                        if(tags.length) {
+                            tags.forEach(function(tag){
+                                $this.insertPoint.before(
+                                    $this.tagTemplate({
+                                      "value":tag.value,
+                                      "tagModifier":''
+                                }));
+                            });
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
 
             this.input.on({
               "keyup": function(e) {
@@ -144,11 +166,16 @@
         }
     });
 
-    // init code
-    UI.$doc.on("focus.tagger.uikit", "[data-uk-tagger]", function(e) {
-        var ele = $(this);
-        if (!ele.data("tagger")) {
-            var obj = UI.tagger(ele, UI.Utils.options(ele.attr("data-uk-tagger")));
-        }
+    // auto init
+    UI.ready(function(context) {
+
+        $("[data-uk-tagger]", context).each(function(){
+
+            var ele = $(this);
+
+            if(!ele.data("tagger")) {
+                var plugin = UI.tagger(ele, UI.Utils.options(ele.attr("data-uk-tagger")));
+            }
+        });
     });
 });
