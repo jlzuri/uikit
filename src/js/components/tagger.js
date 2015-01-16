@@ -1,4 +1,4 @@
-/*! UIkit 2.11.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.16.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -31,12 +31,12 @@
                                        {{/items}}\
                                        {{#msgMoreOptions}}\
                                           <li class="uk-nav-divider uk-skip"></li>\
-                                          <li data-moreoptions="true"><a href="#" onclick="">{{msgMoreOptions}}</a></li>\
+                                          <li data-moreoptions="true"><a>{{msgMoreOptions}}</a></li>\
                                        {{/msgMoreOptions}}\
                                    {{/end}}\
                                    {{^items.length}}\
                                      {{#msgMoreOptions}}\
-                                         <li data-moreoptions="true"><a href="#" onclick="">{{msgMoreOptions}}</a></li>\
+                                         <li data-moreoptions="true"><a>{{msgMoreOptions}}</a></li>\
                                      {{/msgMoreOptions}}\
                                    {{/end}}\
                                </ul>',
@@ -139,7 +139,7 @@
                 $this.element.removeClass("uk-active");
             });
 
-            this.on('uk.autocomplete.select', function(e, data) {
+            this.on('select.uk.autocomplete', function(e, data) {
                 if (data.value) {
 
                   $this.insertPoint.before(
