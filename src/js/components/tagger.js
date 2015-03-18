@@ -19,7 +19,9 @@
     UI.component('tagger', {
         defaults: {
             preload         : null,
-            skipListChars   : [' ', '|', '!', '$', '%', '^', '&', '*', '+', '.'],
+            maxNumTags      : 1000,
+            skipListChars   : [],
+            inputName       : 'tags[]',
             msgMoreOptions  : 'Add Tag',
             template        : '<ul class="uk-nav uk-nav-autocomplete uk-autocomplete-results">\
                                    {{#items && items.length}}\
@@ -40,13 +42,13 @@
                                    {{/end}}\
                                </ul>',
             tagTemplate     : '<div class="uk-tag {{tagModifier}}" data-uk-alert>\
-                                  <input type="hidden" name="tags[]" value="{{value}}"/>\
+                                    <input type="hidden" name="{{name}}" value="{{value}}"/>\
                                   <p>{{value}}</p>\
                                   <a href="#" class="uk-alert-close uk-close"></a>\
                               </div>',
             msgBeforeChars  : 'These characters are not allowed: ',
             msgAfterChars   : '',
-            alertTemplate        : '<div class="uk-alert uk-alert-danger" data-uk-alert>\
+            alertTemplate   : '<div class="uk-alert uk-alert-danger" data-uk-alert>\
                                   {{{msgBeforeChars}}}{{{skipListChars}}}{{{msgAfterChars}}}\
                                   <a href class="uk-alert-close uk-close"></a>\
                               </div>',
@@ -62,8 +64,11 @@
 
         init: function() {
             var $this = this;
+            var numTags = 0;
             var alertShown = false;
-            var skipListRegex = new RegExp('\\' + this.options.skipListChars.join('|\\'), 'g');
+            var skipListRegex = this.options.skipListChars.length > 0 ? 
+                new RegExp('\\' + this.options.skipListChars.join('|\\'), 'g') :
+                new RegExp("($^)", 'g');
 
             this.autocomplete = UI.autocomplete(this.element, this.options);
 
@@ -83,15 +88,17 @@
             if(this.options.preload)
             {
                 var tags = this.options.preload;
-                switch(typeof(this.options.preload)) {
+                switch(typeof(tags)) {
                     case 'object':
                         if(tags.length) {
                             tags.forEach(function(tag){
                                 $this.insertPoint.before(
                                     $this.tagTemplate({
+                                      "name": $this.options.inputName,
                                       "value":tag.value,
                                       "tagModifier":''
                                 }));
+                                numTags++;
                             });
                         }
                         break;
@@ -106,7 +113,7 @@
                   if (e && e.which)
                   {
                       var str = $this.input.val();
-                      if(skipListRegex.test(str)) {
+                      if(str.lenght > 0 && skipListRegex.test(str)) {
                           e.preventDefault();
                           str = str.replace(skipListRegex, '');
                           $this.input.val(str);
@@ -127,6 +134,12 @@
                   if (e && e.which && e.which === 8 && $this.input.val() === '') {
                       e.preventDefault();
                       $this.element.find('.uk-tag:last').remove();
+                      numTags = Math.max(numTags-1 , 0);
+                  }
+                  else if(e && e.which && e.which !== 9 && numTags >= $this.options.maxNumTags)
+                  {
+                      e.preventDefault();
+                      $this.input.val('');
                   }
               } 
             });
@@ -138,27 +151,35 @@
                 $this.element.removeClass("uk-active");
             });
 
-            this.on('select.uk.autocomplete', function(e, data) {
-                if (data.value) {
+            this.on({
+                'select.uk.autocomplete': function(e, data) {
+                    if (data.value) {
 
-                  $this.insertPoint.before(
-                      $this.tagTemplate({
-                        "value":data.value,
-                        "tagModifier":''
-                  }));
+                      $this.insertPoint.before(
+                          $this.tagTemplate({
+                            "name": $this.options.inputName,
+                            "value":data.value,
+                            "tagModifier":''
+                      }));
 
+                    }
+                    else if(data.moreoptions) {
+
+                      $this.insertPoint.before(
+                          $this.tagTemplate({
+                              "name": $this.options.inputName,
+                              "value":$this.input.val(), 
+                              "tagModifier":'uk-tag-alt'
+                      }));
+
+                    }
+                    $this.input.val('');
+                    delete data.value;
+                    numTags++;
+                },
+                'closed.uk.alert': function(e, data) {
+                    numTags = Math.max(numTags-1 , 0);
                 }
-                else if(data.moreoptions) {
-
-                  $this.insertPoint.before(
-                      $this.tagTemplate({
-                          "value":$this.input.val(), 
-                          "tagModifier":'uk-tag-alt'
-                  }));
-
-                }
-                $this.input.val('');
-                delete data.value;
             });
 
             this.element.data("tagger", this);
