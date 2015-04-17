@@ -1,4 +1,4 @@
-(function(global, $, UI){
+(function(UI){
 
     "use strict";
 
@@ -8,7 +8,7 @@
 
         defaults: {
             target    : false,
-            cls       : '@-hidden',
+            cls       : 'uk-hidden',
             animation : false,
             duration  : 200
         },
@@ -18,11 +18,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-@-toggle]", context).each(function() {
+                UI.$("[data-uk-toggle]", context).each(function() {
                     var ele = UI.$(this);
 
                     if (!ele.data("toggle")) {
-                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-@-toggle")));
+                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
                     }
                 });
 
@@ -40,6 +40,8 @@
 
             var $this = this;
 
+            this.aria = (this.options.cls.indexOf('uk-hidden') !== -1);
+
             this.getToggles();
 
             this.on("click", function(e) {
@@ -56,7 +58,7 @@
 
             if (this.options.animation && UI.support.animation) {
 
-                var $this = this, animations = UI.prefix(this.options.animation).split(',');
+                var $this = this, animations = this.options.animation.split(',');
 
                 if (animations.length == 1) {
                     animations[1] = animations[0];
@@ -73,7 +75,7 @@
 
                     this.totoggle.each(function(){
                         UI.Utils.animate(this, animations[0]).then(function(){
-                            $(this).css('animation-duration', '');
+                            UI.$(this).css('animation-duration', '');
                             UI.Utils.checkDisplay(this);
                         });
                     });
@@ -81,7 +83,7 @@
                 } else {
 
                     this.totoggle.each(function(){
-                        UI.Utils.animate(this, animations[1]+' @-animation-reverse').then(function(){
+                        UI.Utils.animate(this, animations[1]+' uk-animation-reverse').then(function(){
                             UI.$(this).toggleClass($this.options.cls).css('animation-duration', '');
                             UI.Utils.checkDisplay(this);
                         }.bind(this));
@@ -92,11 +94,23 @@
                 this.totoggle.toggleClass(this.options.cls);
                 UI.Utils.checkDisplay(this.totoggle);
             }
+
+            this.updateAria();
+
         },
 
         getToggles: function() {
             this.totoggle = this.options.target ? UI.$(this.options.target):[];
+            this.updateAria();
+        },
+
+        updateAria: function() {
+            if (this.aria && this.totoggle.length) {
+                this.totoggle.each(function(){
+                    UI.$(this).attr('aria-hidden', UI.$(this).hasClass('uk-hidden'));
+                });
+            }
         }
     });
 
-})(this, jQuery, UIkit);
+})(UIkit);
