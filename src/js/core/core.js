@@ -40,14 +40,14 @@
 
     "use strict";
 
-    var UI = {}, _UI = window.UIkit;
+    var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.18.0';
+    UI.version = '2.20.3';
 
     UI.noConflict = function() {
-        // resore UIkit version
+        // restore UIkit version
         if (_UI) {
-            window.UIkit = _UI;
+            global.UIkit = _UI;
             $.UIkit      = _UI;
             $.fn.uk      = _UI.fn;
         }
@@ -65,22 +65,6 @@
     UI.$doc  = UI.$(document);
     UI.$win  = UI.$(window);
     UI.$html = UI.$('html');
-
-    UI.fn = function(command, options) {
-
-        var args = arguments, cmd = command.match(/^([a-z\-]+)(?:\.([a-z]+))?/i), component = cmd[1], method = cmd[2];
-
-        if (!UI[component]) {
-            $.error("UIkit component [" + component + "] does not exist.");
-            return this;
-        }
-
-        return this.each(function() {
-            var $this = $(this), data = $this.data(component);
-            if (!data) $this.data(component, (data = UI[component](this, method ? undefined : options)));
-            if (method) data[method].apply(data, Array.prototype.slice.call(args, 1));
-        });
-    };
 
     UI.support = {};
     UI.support.transition = (function() {
@@ -123,14 +107,37 @@
         return animationEnd && { end: animationEnd };
     })();
 
-    UI.support.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame || function(callback){ setTimeout(callback, 1000/60); };
-    UI.support.touch                 = (
-        ('ontouchstart' in window && navigator.userAgent.toLowerCase().match(/mobile|tablet/)) ||
+    // requestAnimationFrame polyfill
+    // https://gist.github.com/paulirish/1579671
+    (function(){
+
+        var lastTime = 0;
+
+        global.requestAnimationFrame = global.requestAnimationFrame || global.webkitRequestAnimationFrame || function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = global.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+
+        if (!global.cancelAnimationFrame) {
+
+            global.cancelAnimationFrame = function(id) {
+                clearTimeout(id);
+            };
+        }
+
+    })();
+
+    UI.support.touch = (
+        ('ontouchstart' in document) ||
         (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
         (global.navigator.msPointerEnabled && global.navigator.msMaxTouchPoints > 0) || //IE 10
         (global.navigator.pointerEnabled && global.navigator.maxTouchPoints > 0) || //IE >=11
         false
     );
+
     UI.support.mutationobserver = (global.MutationObserver || global.WebKitMutationObserver || null);
 
     UI.Utils = {};
@@ -342,7 +349,26 @@
     UI.Utils.events       = {};
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
-    window.UIkit = UI;
+    global.UIkit = UI;
+
+    // deprecated
+
+    UI.fn = function(command, options) {
+
+        var args = arguments, cmd = command.match(/^([a-z\-]+)(?:\.([a-z]+))?/i), component = cmd[1], method = cmd[2];
+
+        if (!UI[component]) {
+            $.error("UIkit component [" + component + "] does not exist.");
+            return this;
+        }
+
+        return this.each(function() {
+            var $this = $(this), data = $this.data(component);
+            if (!data) $this.data(component, (data = UI[component](this, method ? undefined : options)));
+            if (method) data[method].apply(data, Array.prototype.slice.call(args, 1));
+        });
+    };
+
     $.UIkit      = UI;
     $.fn.uk      = UI.fn;
 
@@ -567,13 +593,20 @@
         });
     };
 
-    UI.on('domready.uk.dom', function(){
+    UI.init = function(root) {
+
+        root = root || document;
 
         UI.domObservers.forEach(function(fn){
-            fn(document);
+            fn(root);
         });
+    };
 
-        if (UI.domready) UI.Utils.checkDisplay(document);
+    UI.on('domready.uk.dom', function(){
+
+        UI.init();
+
+        if (UI.domready) UI.Utils.checkDisplay();
     });
 
     $(function(){
@@ -585,14 +618,8 @@
         });
 
         UI.on('changed.uk.dom', function(e) {
-
-            var ele = e.target;
-
-            UI.domObservers.forEach(function(fn){
-                fn(ele);
-            });
-
-            UI.Utils.checkDisplay(ele);
+            UI.init(e.target);
+            UI.Utils.checkDisplay(e.target);
         });
 
         UI.trigger('beforeready.uk.dom');

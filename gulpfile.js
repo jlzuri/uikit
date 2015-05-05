@@ -21,9 +21,10 @@ var pkg         = require('./package.json'),
     browserSync = require('browser-sync'),
     Promise     = require('promise');
 
-var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
-    watchCache = {},
-    getThemes  = function(theme, all){
+var watchmode    = gutil.env._.length && gutil.env._[0] == 'watch',
+    watchCache   = {},
+    watchfolders = ['src/**/*', 'themes/**/*.less', 'custom/**/*.less'],
+    getThemes    = function(theme, all) {
 
         var list = [], themefolders = ["themes"];
 
@@ -45,6 +46,7 @@ var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
             });
         });
 
+
         return list;
     },
 
@@ -53,7 +55,7 @@ var watchmode  = gutil.env._.length && gutil.env._[0] == 'watch',
         var theme = gutil.env.t || gutil.env.theme || false,
             all   = gutil.env.all || gutil.env.a || theme;
 
-        return getThemes( theme, all);
+        return getThemes(theme, all);
     })(),
 
     corejs = [
@@ -89,7 +91,7 @@ gulp.task('default', ['dist', 'build-docs', 'indexthemes'], function(done) {
 
 gulp.task('dist', ['dist-themes-core'], function(done) {
 
-    runSequence('sass', 'dist-core-minify', 'dist-core-header', 'browser-reload', 'dist-bower-file', function(){
+    runSequence('sass', 'dist-core-minify', 'dist-core-header', 'dist-bower-file', function(){
 
         if (gutil.env.m || gutil.env.min) {
             gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
@@ -106,12 +108,30 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
 /*
  * development related tasks
  * ---------------------------------------------------------*/
-gulp.task('browser-sync', function() {
-    browserSync({
+gulp.task('sync', function() {
+
+    function buildTheme(theme) {
+
+        return new Promise(function(resolve){
+
+            var tmp = themes;
+
+            themes = getThemes(theme);
+
+            runSequence('dist-themes-core', function(){
+                themes = tmp;
+                resolve();
+            });
+        });
+    }
+
+    var currenttheme,
+        bs = browserSync({
         server: {
-            baseDir: "./",
-            startPath: "/tests",
-            middleware: function (req, res, next) {
+
+            baseDir    : "./",
+            startPath  : "/tests",
+            middleware : function (req, res, next) {
 
                 var m, theme;
 
@@ -123,19 +143,11 @@ gulp.task('browser-sync', function() {
 
                 if (theme) {
 
+                    currenttheme = theme;
+
                     if (!watchCache[theme]) {
 
-                        watchCache[theme] = new Promise(function(resolve){
-
-                            var tmp = themes;
-
-                            themes = getThemes(theme);
-
-                            runSequence('dist-themes-core', function(){
-                                themes = tmp;
-                                resolve();
-                            });
-                        });
+                        watchCache[theme] = buildTheme(theme);
                     }
 
                     watchCache[theme].then(function(){
@@ -147,22 +159,27 @@ gulp.task('browser-sync', function() {
                 }
 
             }
-        }
+        },
+
+        files: [{
+            match: watchfolders,
+            fn: function (event, file) {
+
+                if (currenttheme) {
+
+                    watchCache = {};
+                    bs.reload();
+                }
+            }
+        }]
     });
+
 });
 
-gulp.task('browser-reload', function (done) {
-    watchCache = {};
-    browserSync.reload();
-    done();
-});
-
-gulp.task('watch', ['browser-sync', 'indexthemes'], function(done) {
-
-    watchfolders = ['src/**/*', 'themes/**/*', 'custom/**/*.less'];
+gulp.task('watch', ['dist-clean', 'indexthemes'], function(done) {
 
     gulp.watch(watchfolders, function(files) {
-        runSequence('browser-reload');
+        runSequence('dist');
     });
 });
 
