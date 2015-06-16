@@ -152,7 +152,7 @@
             });
 
             this.on({
-                'select.uk.autocomplete': function(e, data) {
+                'selectitem.uk.autocomplete': function(e, data) {
                     if (data.value) {
 
                       $this.insertPoint.before(
